@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState } from "react";
 import apiClient from "../generic/apiClient";
-import { API_PATHS } from "../generic/apiConfig";
+import { API_PATHS, getApiUrl } from "../generic/apiConfig";
 import { handleApiResponse } from "../generic/handleApiResponse";
 
 interface LoginPayload {
@@ -50,15 +50,15 @@ export function useLogin() {
     }
 
     try {
-      const res = await apiClient.post("/User/refresh", {
-        refresh_token: refreshToken,
+      const res = await apiClient.post(getApiUrl(API_PATHS.refreshToken), {
+        refreshToken,
       });
 
       const newAccessToken = res.data.access_token;
       const newRefreshToken = res.data.refresh_token;
 
-      console.log("🔄 Refreshed Access Token:", newAccessToken);
-      console.log("🔄 Refreshed Refresh Token:", newRefreshToken);
+      console.log("Refreshed Access Token:", newAccessToken);
+      console.log("Refreshed Refresh Token:", newRefreshToken);
 
       await AsyncStorage.setItem("access_token", newAccessToken);
       await AsyncStorage.setItem("refresh_token", newRefreshToken);
@@ -70,7 +70,7 @@ export function useLogin() {
   const startAutoRefresh = () => {
     setInterval(() => {
       refreshToken();
-    }, 60 * 60 * 1000); 
+    }, 60 * 60 * 1000);
   };
 
   return { login, loading, error, refreshToken, startAutoRefresh };
