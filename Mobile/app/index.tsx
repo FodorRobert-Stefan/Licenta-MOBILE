@@ -7,7 +7,7 @@ export default function Index() {
 
   useEffect(() => {
     if (!navigationState?.key) return; 
-    router.replace('/register' as Route);
+    router.replace('/home' as Route);
   }, [navigationState, router]);
 
   return null;

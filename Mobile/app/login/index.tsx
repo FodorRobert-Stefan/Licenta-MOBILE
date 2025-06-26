@@ -22,7 +22,8 @@ export default function LoginScreen() {
       const data = await login({ email, password });
       Alert.alert("Login Successful");
       console.log("User:", data);
-      // router.push("/dashboard");
+      //@ts-ignore
+      router.push("/home");
     } catch {
     }
   };

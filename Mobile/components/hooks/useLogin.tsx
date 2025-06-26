@@ -20,8 +20,8 @@ export function useLogin() {
     try {
       const res = await apiClient.post(API_PATHS.loginUser, payload);
 
-      const accessToken = res.data.access_token;
-      const refreshToken = res.data.refresh_token;
+      const accessToken = res.data.accessToken;
+      const refreshToken = res.data.refreshToken;
 
       console.log("Access Token:", accessToken);
       console.log("Refresh Token:", refreshToken);
